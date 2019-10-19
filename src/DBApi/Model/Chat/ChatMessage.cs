@@ -22,6 +22,9 @@ namespace DBApi.Model.Chat
         [Required]
         public string UserName { get; set; }
 
+        public Guid UserGuid { get; set; }
+
+
         public DateTimeOffset Date { get; set; }
     }
 }
