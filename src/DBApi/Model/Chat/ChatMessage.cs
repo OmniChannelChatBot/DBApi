@@ -13,7 +13,7 @@ namespace DBApi.Model.Chat
 
         public int Id { get; set; }
 
-        public int RoomId { get; set; }
+        public int ChatRoomId { get; set; }
         [Required]
         public string Text { get; set; }
 
