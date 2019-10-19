@@ -16,7 +16,7 @@ namespace DBApi.Data
         }
 
         public DbSet<ChatRoom> ChatRooms { get; set; }
-        public DbSet<ChatMessage> Messages { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
 
         public DbSet<User> Users { get; set; }
 
