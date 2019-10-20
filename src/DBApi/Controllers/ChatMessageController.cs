@@ -25,6 +25,11 @@ namespace DBApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            ////test
+            //var save = await _messageService.AddMessageToRoomAsync(
+            //    new Guid(),
+            //    new ChatMessage(1, "first message", "kantuz001", new Guid()));
+
             var messagesForRoom = await _messageService.GetMessagesAsync();
 
             return Ok(messagesForRoom);

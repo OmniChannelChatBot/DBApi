@@ -1,15 +1,20 @@
 ﻿using DBApi.Model.Enum;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DBApi.Model.Chat
 {
     public class ChatMessage
     {
-        public Guid Guid { get; set; }
+        public ChatMessage(int chatRoomId, string text, string userName, Guid userGuid)
+        {
+            ChatRoomId = chatRoomId;
+            Text = text;
+            UserName = userName;
+            UserGuid = userGuid;
+        }
+
+        public Guid Guid { get; set; } = Guid.NewGuid();
 
         public int Id { get; set; }
 
@@ -24,7 +29,6 @@ namespace DBApi.Model.Chat
 
         public Guid UserGuid { get; set; }
 
-
-        public DateTimeOffset Date { get; set; }
+        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
     }
 }
