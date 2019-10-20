@@ -31,8 +31,8 @@ namespace DBApi
             {
                 builder.AllowAnyMethod()
                        .AllowAnyHeader()
-                       .AllowAnyOrigin()
-                       .AllowCredentials();
+                       .AllowAnyOrigin();
+                       //.AllowCredentials();
             }));
 
             services.AddScoped<IChatRoomService, ChatRoomService>();
@@ -52,6 +52,8 @@ namespace DBApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
