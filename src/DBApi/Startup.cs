@@ -34,7 +34,8 @@ namespace DBApi
 
             services.AddDbContext<DBApiContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+
+            services.AddControllers(options => options.EnableEndpointRouting = false);
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
