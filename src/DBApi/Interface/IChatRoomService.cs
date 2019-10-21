@@ -9,6 +9,7 @@ namespace DBApi.Interface
     public interface IChatRoomService
     {
         Task<List<ChatRoom>> GetChatRoomsAsync();
+        Task<List<ChatRoom>> GetChatRoomsAsync(Guid userGuid);
         Task<bool> AddChatRoomAsync(ChatRoom newChatRoom);
     }
 }

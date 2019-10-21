@@ -9,7 +9,7 @@ namespace DBApi.Interface
     public interface IMessageService
     {
         Task<List<ChatMessage>> GetMessagesAsync();
-        Task<List<ChatMessage>> GetMessagesForChatRoomAsync(Guid roomId);
-        Task<bool> AddMessageToRoomAsync(Guid roomId, ChatMessage message);
+        Task<List<ChatMessage>> GetMessagesForChatRoomAsync(Guid roomGuid);
+        Task<bool> AddMessageToRoomAsync(Guid roomGuid, ChatMessage message);
     }
 }
