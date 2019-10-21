@@ -1,3 +1,5 @@
+using Correlate.AspNetCore;
+using Correlate.DependencyInjection;
 using DBApi.Data;
 using DBApi.Interface;
 using DBApi.Service;
@@ -22,6 +24,14 @@ namespace DBApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCorrelate(options =>
+                options.RequestHeaders = new[]
+                {
+                    // List of incoming headers possible. First that is set on given request is used and also returned in the response.
+                    "X-Correlation-ID",
+                }
+            );
+
             services.AddDbContext<DBApiContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
@@ -37,6 +47,9 @@ namespace DBApi
 
             services.AddScoped<IChatRoomService, ChatRoomService>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddMvcCore();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +72,10 @@ namespace DBApi
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCorrelate();
+
+            app.UseMvc();
 
             UpdateDatabase(app);
         }
