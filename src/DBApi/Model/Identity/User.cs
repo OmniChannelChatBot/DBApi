@@ -1,8 +1,6 @@
 ﻿using DBApi.Model.Enum;
+using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DBApi.Model.Identity
 {
@@ -22,6 +20,8 @@ namespace DBApi.Model.Identity
 
         public string Login { get; set; }
         public string Password { get; set; }
+
+        public string PasswordHash { get; set; }
 
         public DateTimeOffset Date { get; set; }
 
