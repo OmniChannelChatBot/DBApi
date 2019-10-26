@@ -9,21 +9,25 @@ namespace DBApi.Model.Identity
         /// <summary>
         /// For channel users
         /// </summary>
-        public Guid Guid { get; set; }
+        public Guid Guid { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// For known users stored in database
         /// </summary>
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public string Login { get; set; }
         public string Password { get; set; }
 
         public string PasswordHash { get; set; }
 
-        public DateTimeOffset Date { get; set; }
+        public string Email { get; set; }
+
+        public DateTimeOffset CreateDate { get; set; }
 
         public DateTimeOffset UpdateDate { get; set; }
 

@@ -4,14 +4,16 @@ using DBApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBApi.Migrations
 {
     [DbContext(typeof(DBApiContext))]
-    partial class DBApiContextModelSnapshot : ModelSnapshot
+    [Migration("20191026120606_UserNewFields")]
+    partial class UserNewFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

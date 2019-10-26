@@ -1,5 +1,6 @@
 ﻿using DBApi.Data;
 using DBApi.Interface;
+using DBApi.Model.Enum;
 using DBApi.Model.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -37,7 +38,29 @@ namespace DBApi.Service
             }
         }
 
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<User> CreateUserAsync(string firstName, string lastName, 
+            string email, string userName, string password, UserType userType = UserType.person)
+        {
+            var user = new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Login = userName,
+                Password = password,
+                Guid = Guid.NewGuid(),
+                CreateDate = DateTimeOffset.Now,
+                UpdateDate = DateTimeOffset.Now,
+                UserType = userType
+            };
+
+            user = await CreateUserAsync(user);
+
+            // TODO: return not all fields
+            return user;
+        }
+
+        private async Task<User> CreateUserAsync(User user)
         {
             _context.Users.Add(user);
 
