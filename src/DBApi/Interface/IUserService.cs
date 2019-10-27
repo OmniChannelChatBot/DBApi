@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace DBApi.Interface
 {
-    interface IUserService
+    public interface IUserService
     {
         Task<List<User>> GetUsersAsync(Guid roomGuid);
-        Task<User> GetUserAsync(Guid userGuid);
+        Task<User> GetUserAsync(int userId);
         Task<User> CreateUserAsync(string firstName, string lastName,
             string email, string userName, string password, UserType userType = UserType.person);
-        Task<bool> AddUserToRoomAsync(Guid roomGuid, Guid userGuid);
+
+        Task<User> UpdateUserAsync(string firstName, string lastName,
+            string email, string userName, string password, UserType userType = UserType.person);
+
+        Task<bool> AddUserToRoomAsync(Guid roomGuid, int usrId);
+
+        Task<bool> CheckUserNameAsync(string userName);
     }
 }

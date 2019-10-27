@@ -1,4 +1,6 @@
 ﻿using DBApi.Data;
+using DBApi.Exception;
+using DBApi.ExtensionMethod;
 using DBApi.Interface;
 using DBApi.Model.Enum;
 using DBApi.Model.Identity;
@@ -19,13 +21,13 @@ namespace DBApi.Service
             _context = context;
         }
 
-        public async Task<bool> AddUserToRoomAsync(Guid roomGuid, Guid userGuid)
+        public async Task<bool> AddUserToRoomAsync(Guid roomGuid, int userId)
         {
             var room = await _context.ChatRooms.FirstOrDefaultAsync(cr => cr.Guid == roomGuid);
 
             if (room != null)
             {
-                var user = await GetUserAsync(userGuid);
+                var user = await GetUserAsync(userId);
                 room.Users.Add(user);
                 var saveResults = await _context.SaveChangesAsync();
 
@@ -33,8 +35,7 @@ namespace DBApi.Service
             }
             else
             {
-                //TODO: create UserServiceException class
-                throw new Exception($"invalid roomGuid: {roomGuid}");
+                throw new DBApiExection($"invalid roomGuid: {roomGuid}");
             }
         }
 
@@ -57,7 +58,27 @@ namespace DBApi.Service
             user = await CreateUserAsync(user);
 
             // TODO: return not all fields
-            return user;
+            return user.WithoutPassword();
+        }
+
+        public async Task<User> UpdateUserAsync(string firstName, string lastName,
+            string email, string userName, string password, UserType userType = UserType.person)
+        {
+            var user = new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Login = userName,
+                Password = password,
+                UpdateDate = DateTimeOffset.Now,
+                UserType = userType
+            };
+
+            user = await UpdateUserAsync(user);
+
+            // TODO: return not all fields
+            return user.WithoutPassword();
         }
 
         private async Task<User> CreateUserAsync(User user)
@@ -69,19 +90,34 @@ namespace DBApi.Service
             return user;
         }
 
-        public async Task<User> GetUserAsync(Guid userGuid)
+        private async Task<User> UpdateUserAsync(User user)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Guid == userGuid);
+            _context.Users.Update(user);
+
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<User> GetUserAsync(int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user != null)
             {
-                return user;
+                return user.WithoutPassword();
             }
             else
             {
-                //TODO: create UserServiceException class
-                throw new Exception($"invalid userGuid: {userGuid}");
+                throw new DBApiExection($"invalid userId: {userId}");
             }
+        }
+
+        public async Task<bool> CheckUserNameAsync(string userName)
+        {
+            var exists = await _context.Users.AnyAsync(u => u.Login == userName);
+
+            return exists;
         }
 
         public async Task<List<User>> GetUsersAsync(Guid roomGuid)
@@ -98,8 +134,7 @@ namespace DBApi.Service
             }
             else
             {
-                //TODO: create UserServiceException class
-                throw new Exception($"invalid roomGuid: {roomGuid}");
+                throw new DBApiExection($"invalid roomGuid: {roomGuid}");
             }
         }
     }
