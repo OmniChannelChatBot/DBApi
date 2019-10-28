@@ -42,6 +42,8 @@ namespace DBApi.Service
         public async Task<User> CreateUserAsync(string firstName, string lastName, 
             string email, string userName, string password, UserType userType = UserType.person)
         {
+            var now = DateTimeOffset.Now;
+
             var user = new User
             {
                 FirstName = firstName,
@@ -50,8 +52,8 @@ namespace DBApi.Service
                 Login = userName,
                 Password = password,
                 Guid = Guid.NewGuid(),
-                CreateDate = DateTimeOffset.Now,
-                UpdateDate = DateTimeOffset.Now,
+                CreateDate = now,
+                UpdateDate = now,
                 UserType = userType
             };
 
@@ -136,6 +138,21 @@ namespace DBApi.Service
             {
                 throw new DBApiExection($"invalid roomGuid: {roomGuid}");
             }
+        }
+
+        public async Task<bool> DeleteAsync(int userId)
+        {
+            bool result = false;
+            var user = await _context.Users.FindAsync(userId);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+
+                result = true;
+            }
+
+            return result;
         }
     }
 }

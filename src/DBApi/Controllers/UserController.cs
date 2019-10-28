@@ -2,11 +2,13 @@
 using DBApi.Interface;
 using DBApi.Model;
 using DBApi.Service;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace DBApi.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -19,9 +21,9 @@ namespace DBApi.Controllers
         }
 
         [HttpPost("checkusername")]
-        public async Task<IActionResult> CheckUserNameAsync(string userName)
+        public async Task<IActionResult> CheckUserNameAsync([FromBody]CheckUserModel userModel)
         {
-            var messagesForRoom = await _userService.CheckUserNameAsync(userName);
+            var messagesForRoom = await _userService.CheckUserNameAsync(userModel.Username);
 
             return Ok(messagesForRoom);
         }
@@ -54,11 +56,18 @@ namespace DBApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var user = _userService.GetUserAsync(id);
+            var user = await _userService.GetUserAsync(id);
 
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _userService.DeleteAsync(id);
+            return Ok(result);
         }
     }
 }

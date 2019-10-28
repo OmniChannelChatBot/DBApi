@@ -17,6 +17,8 @@ namespace DBApi.Interface
         Task<User> UpdateUserAsync(string firstName, string lastName,
             string email, string userName, string password, UserType userType = UserType.person);
 
+        Task<bool> DeleteAsync(int userId);
+
         Task<bool> AddUserToRoomAsync(Guid roomGuid, int usrId);
 
         Task<bool> CheckUserNameAsync(string userName);
