@@ -49,7 +49,7 @@ namespace DBApi.Service
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                Login = userName,
+                Username = userName,
                 Password = password,
                 Guid = Guid.NewGuid(),
                 CreateDate = now,
@@ -71,7 +71,7 @@ namespace DBApi.Service
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                Login = userName,
+                Username = userName,
                 Password = password,
                 UpdateDate = DateTimeOffset.Now,
                 UserType = userType
@@ -117,7 +117,7 @@ namespace DBApi.Service
 
         public async Task<bool> CheckUserNameAsync(string userName)
         {
-            var exists = await _context.Users.AnyAsync(u => u.Login == userName);
+            var exists = await _context.Users.AnyAsync(u => u.Username == userName);
 
             return exists;
         }

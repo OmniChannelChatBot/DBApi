@@ -34,7 +34,18 @@ namespace DBApi.Controllers
             var user = await _userService.CreateUserAsync(model.FirstName,
                 model.LastName, model.Email, model.Username, model.Password);
 
-            return Ok(user);
+            var userResponse = new UserResponse()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Guid = user.Guid,
+                Id = user.Id,
+                //Password = user.Password,
+                Email = user.Email
+            };
+
+            return Ok(userResponse);
         }
 
         [HttpPost("update")]
