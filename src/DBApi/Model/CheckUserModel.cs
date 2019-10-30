@@ -1,11 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DBApi.Model
 {
     public class CheckUserModel
     {
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
+
+        [Required]
+        public string Password { get; set; }
     }
 }

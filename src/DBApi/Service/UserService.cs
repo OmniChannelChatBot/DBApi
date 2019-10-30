@@ -122,6 +122,13 @@ namespace DBApi.Service
             return exists;
         }
 
+        public async Task<bool> CheckUserAsync(string userName, string password)
+        {
+            var exists = await _context.Users.AnyAsync(u => u.Username == userName && u.Password == password);
+
+            return exists;
+        }
+
         public async Task<List<User>> GetUsersAsync(Guid roomGuid)
         {
             var chatRoom = await _context.ChatRooms

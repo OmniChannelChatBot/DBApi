@@ -21,9 +21,17 @@ namespace DBApi.Controllers
         }
 
         [HttpPost("checkusername")]
-        public async Task<IActionResult> CheckUserNameAsync([FromBody]CheckUserModel userModel)
+        public async Task<IActionResult> CheckUserNameAsync([FromBody]CheckUserNameModel userModel)
         {
-            var exists = await _userService.CheckUserNameAsync(userModel.Username);
+            var exists = await _userService.CheckUserNameAsync(userModel.UserName);
+
+            return Ok(exists);
+        }
+
+        [HttpPost("checkuser")]
+        public async Task<IActionResult> CheckUserAsync([FromBody]CheckUserModel userModel)
+        {
+            var exists = await _userService.CheckUserAsync(userModel.UserName, userModel.Password);
 
             return Ok(exists);
         }

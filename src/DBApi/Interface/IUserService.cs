@@ -10,7 +10,9 @@ namespace DBApi.Interface
     public interface IUserService
     {
         Task<List<User>> GetUsersAsync(Guid roomGuid);
+
         Task<User> GetUserAsync(int userId);
+
         Task<User> CreateUserAsync(string firstName, string lastName,
             string email, string userName, string password, UserType userType = UserType.person);
 
@@ -22,5 +24,8 @@ namespace DBApi.Interface
         Task<bool> AddUserToRoomAsync(Guid roomGuid, int usrId);
 
         Task<bool> CheckUserNameAsync(string userName);
+
+        Task<bool> CheckUserAsync(string userName, string password);
+
     }
 }
