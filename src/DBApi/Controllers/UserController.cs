@@ -39,19 +39,27 @@ namespace DBApi.Controllers
         [HttpPost("getuser")]
         public async Task<IActionResult> GetUserAsync([FromBody]CheckUserModel userModel)
         {
-            var user = await _userService.GetUserAsync(userModel.UserName, userModel.Password);
-
-            var userResponse = new UserResponse()
+            try
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Username = user.Username,
-                Guid = user.Guid,
-                Id = user.Id,
-                Email = user.Email
-            };
+                var user = await _userService.GetUserAsync(userModel.UserName, userModel.Password);
 
-            return Ok(userResponse);
+                var userResponse = new UserResponse()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Username = user.Username,
+                    Guid = user.Guid,
+                    Id = user.Id,
+                    Email = user.Email
+                };
+
+                return Ok(userResponse);
+            }
+            catch (DBApiExection ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost("create")]
