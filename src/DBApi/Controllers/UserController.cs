@@ -36,6 +36,24 @@ namespace DBApi.Controllers
             return Ok(exists);
         }
 
+        [HttpPost("getuser")]
+        public async Task<IActionResult> GetUserAsync([FromBody]CheckUserModel userModel)
+        {
+            var user = await _userService.GetUserAsync(userModel.UserName, userModel.Password);
+
+            var userResponse = new UserResponse()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Guid = user.Guid,
+                Id = user.Id,
+                Email = user.Email
+            };
+
+            return Ok(userResponse);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateAsync([FromBody]RegisterModel model)
         {

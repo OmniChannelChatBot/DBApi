@@ -27,5 +27,6 @@ namespace DBApi.Interface
 
         Task<bool> CheckUserAsync(string userName, string password);
 
+        Task<User> GetUserAsync(string userName, string password);
     }
 }
