@@ -23,9 +23,9 @@ namespace DBApi.Controllers
         [HttpPost("checkusername")]
         public async Task<IActionResult> CheckUserNameAsync([FromBody]CheckUserModel userModel)
         {
-            var messagesForRoom = await _userService.CheckUserNameAsync(userModel.Username);
+            var exists = await _userService.CheckUserNameAsync(userModel.Username);
 
-            return Ok(messagesForRoom);
+            return Ok(exists);
         }
 
         [HttpPost("create")]
@@ -41,7 +41,6 @@ namespace DBApi.Controllers
                 Username = user.Username,
                 Guid = user.Guid,
                 Id = user.Id,
-                //Password = user.Password,
                 Email = user.Email
             };
 
