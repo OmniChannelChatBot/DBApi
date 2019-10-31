@@ -1,7 +1,6 @@
 ﻿using DBApi.Exception;
 using DBApi.Interface;
 using DBApi.Model;
-using DBApi.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
