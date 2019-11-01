@@ -11,3 +11,4 @@
 ## -add opentracing, jaeger
 ## -add polly
 ## -add common exception handler
+## -add StyleCopAnalyzers
