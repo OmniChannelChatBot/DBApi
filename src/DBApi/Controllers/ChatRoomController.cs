@@ -19,18 +19,29 @@ namespace DBApi.Controllers
 
         // GET: api/values
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             var chatRooms = await _chatRoomService.GetChatRoomsAsync();
 
             return Ok(chatRooms);
         }
 
-        // POST api/values
-        [HttpPost]
-        public async void Post([FromBody]ChatRoom chatRoom)
+        // GET: api/values
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetAsync(int userId)
         {
-            await _chatRoomService.AddChatRoomAsync(chatRoom);
+            var chatRooms = await _chatRoomService.GetChatRoomsAsync(userId);
+
+            return Ok(chatRooms);
+        }
+
+        // POST api/values
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateAsync([FromBody]ChatRoom chatRoom)
+        {
+            var result = await _chatRoomService.AddChatRoomAsync(chatRoom);
+
+            return Ok(result);
         }
     }
 }

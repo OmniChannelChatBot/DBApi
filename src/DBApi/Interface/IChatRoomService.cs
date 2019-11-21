@@ -1,7 +1,5 @@
 ﻿using DBApi.Model.Chat;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DBApi.Interface
@@ -9,7 +7,7 @@ namespace DBApi.Interface
     public interface IChatRoomService
     {
         Task<List<ChatRoom>> GetChatRoomsAsync();
-        Task<List<ChatRoom>> GetChatRoomsAsync(Guid userGuid);
+        Task<List<ChatRoom>> GetChatRoomsAsync(int userId);
         Task<bool> AddChatRoomAsync(ChatRoom newChatRoom);
     }
 }
