@@ -25,10 +25,10 @@ namespace DBApi.Service
             return chatRooms;
         }
 
-        public async Task<List<ChatRoom>> GetChatRoomsAsync(Guid userGuid)
+        public async Task<List<ChatRoom>> GetChatRoomsAsync(int userId)
         {
             var chatRooms = await _context.ChatRooms.
-                Where(cr => cr.Users.Any(u => u.Guid == userGuid)).
+                Where(cr => cr.Users.Any(u => u.Id == userId)).
                 ToListAsync<ChatRoom>();
 
             return chatRooms;
