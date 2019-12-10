@@ -39,12 +39,12 @@ namespace DB.Api
 
         public ApiProblemDetails(HttpContext context, string title = default(string))
         {
-            if (Const.ProblemTypes.TryGetValue(context.Response.StatusCode, out var problemType))
+            if (Constants.ProblemTypes.TryGetValue(context.Response.StatusCode, out var problemType))
             {
                 Type = problemType.Item2;
             }
 
-            Title = title ?? Const.ProblemTypes[context.Response.StatusCode].Item1;
+            Title = title ?? Constants.ProblemTypes[context.Response.StatusCode].Item1;
             TraceId = context.TraceIdentifier;
             Status = context.Response.StatusCode;
             Instance = nameof(DB);

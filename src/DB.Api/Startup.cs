@@ -2,6 +2,7 @@ using AutoMapper;
 using Correlate.AspNetCore;
 using Correlate.DependencyInjection;
 using DB.Api.Extensions;
+using DB.Api.Middlewares;
 using DB.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ namespace DB.Api
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseMiddleware<ApiExceptionMiddleware>();
             app.UseRouting();
             app.UseCustomHealthChecks();
             app.UseEndpoints(endpoints => endpoints.MapControllers());

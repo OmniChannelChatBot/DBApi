@@ -35,7 +35,7 @@ namespace DB.Api.Swagger.OperationFilters
                     statusCode.ToString(),
                     new OpenApiResponse
                     {
-                        Description = Const.ProblemTypes[statusCode].Item1,
+                        Description = Constants.ProblemTypes[statusCode].Item1,
                         Content = new Dictionary<string, OpenApiMediaType>
                         {
                             {

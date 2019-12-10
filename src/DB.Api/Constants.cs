@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DB.Api
 {
-    public static class Const
+    public static class Constants
     {
         public static readonly IDictionary<int, ValueTuple<string, string>> ProblemTypes = new Dictionary<int, ValueTuple<string, string>>
             {
