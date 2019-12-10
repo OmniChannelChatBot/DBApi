@@ -19,27 +19,27 @@ namespace DB.Api.Controllers
             _mediator = mediator;
 
         [HttpGet]
-        [SwaggerOperation(OperationId = nameof(GetChatRoomList))]
+        [SwaggerOperation(OperationId = nameof(GetChatRoomListAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(IEnumerable<GetListChatRoomQueryResponse>))]
-        public async Task<IActionResult> GetChatRoomList()
+        public async Task<IActionResult> GetChatRoomListAsync()
         {
             var chatRooms = await _mediator.Send(new GetChatRoomListQuery());
             return Ok(chatRooms);
         }
 
         [HttpGet("/user/{Id:int}")]
-        [SwaggerOperation(OperationId = nameof(GetChatRoomByUserId))]
+        [SwaggerOperation(OperationId = nameof(GetChatRoomByUserIdAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetChatRoomByUserIdQueryResponse))]
-        public async Task<IActionResult> GetChatRoomByUserId([FromRoute]GetChatRoomByUserIdQuery query)
+        public async Task<IActionResult> GetChatRoomByUserIdAsync([FromRoute]GetChatRoomByUserIdQuery query)
         {
             var chatRoom = await _mediator.Send(query);
             return Ok(chatRoom);
         }
 
         [HttpPost]
-        [SwaggerOperation(OperationId = nameof(CreateChatRoom))]
+        [SwaggerOperation(OperationId = nameof(CreateChatRoomAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Created", typeof(int))]
-        public async Task<IActionResult> CreateChatRoom([FromBody, BindRequired]CreateChatRoomCommand command)
+        public async Task<IActionResult> CreateChatRoomAsync([FromBody, BindRequired]CreateChatRoomCommand command)
         {
             var chatRoomId = await _mediator.Send(command);
             return Ok(chatRoomId);
