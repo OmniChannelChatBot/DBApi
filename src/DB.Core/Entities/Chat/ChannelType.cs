@@ -6,6 +6,6 @@
         VK = 2,
         Facebook = 3,
         Telegram = 4,
-        TnternalChat = 5
+        InternalChat = 5
     }
 }
