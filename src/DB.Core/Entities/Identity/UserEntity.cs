@@ -11,11 +11,11 @@ namespace DB.Core.Entities.Identity
         public string Password { get; set; }
         public string PasswordHash { get; set; }
 
-        public UserType UserType { get; set; } = UserType.Person;
         public string Email { get; set; }
 
-        public DateTimeOffset CreateDate { get; set; }
+        public UserType UserType { get; set; } = UserType.Person;
 
+        public DateTimeOffset CreateDate { get; set; }
         public DateTimeOffset UpdateDate { get; set; }
     }
 }

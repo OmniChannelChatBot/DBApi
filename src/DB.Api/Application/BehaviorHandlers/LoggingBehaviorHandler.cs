@@ -17,14 +17,14 @@ namespace DB.Api.Application.BehaviorHandlers
         {
             try
             {
-                _logger.LogInformation("Операция {RequestName}: {@Request}", typeof(TRequest).Name, request);
+                _logger.LogInformation("Operation {RequestName}: {@Request}", typeof(TRequest).Name, request);
                 var response = await next();
-                _logger.LogInformation("Операция {ResponseName} выполнена успешно. Результат: {@Response}", typeof(TResponse).Name, response);
+                _logger.LogInformation("Operation {ResponseName} completed successfully. Rezult: {@Response}", typeof(TResponse).Name, response);
                 return response;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка при выполнении операции {RequestName}", typeof(TRequest).Name);
+                _logger.LogError(ex, "Error performing operation {RequestName}", typeof(TRequest).Name);
                 throw;
             }
         }
