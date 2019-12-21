@@ -1,21 +1,32 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DB.Core.Entities.Identity
 {
     public class UserEntity : BaseEntity
     {
+        [Required]
         public string Username { get; set; }
+
+        [Required]
         public string FirstName { get; set; }
+
+        [Required]
         public string LastName { get; set; }
 
+        [Required]
         public string Password { get; set; }
-        public string PasswordHash { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
-        public UserType UserType { get; set; } = UserType.Person;
+        [Required]
+        public UserType UserType { get; set; }
 
+        [Required]
         public DateTimeOffset CreateDate { get; set; }
+
+        [Required]
         public DateTimeOffset UpdateDate { get; set; }
     }
 }

@@ -1,19 +1,23 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DB.Core.Entities.Chat
 {
     public class ChatMessageEntity : BaseEntity
     {
+        [Required]
         public int ChatRoomId { get; set; }
 
-        public Guid UserGuid { get; set; }
+        [Required]
+        public int UserId { get; set; }
 
-        public string UserName { get; set; }
-
+        [Required]
         public string Text { get; set; }
 
-        public ChatMessageType Type { get; set; } = ChatMessageType.Text;
+        [Required]
+        public ChatMessageType Type { get; set; }
 
-        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
+        [Required]
+        public DateTimeOffset CreateDate { get; set; }
     }
 }
