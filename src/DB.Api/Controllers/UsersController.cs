@@ -23,7 +23,6 @@ namespace DB.Api.Controllers
         public async Task<IActionResult> CreateUserAsync([FromBody, BindRequired]CreateUserCommand command)
         {
             var userId = await _mediator.Send(command);
-
             return Ok(userId);
         }
 

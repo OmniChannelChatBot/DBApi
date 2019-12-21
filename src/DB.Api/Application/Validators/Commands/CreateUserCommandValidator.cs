@@ -35,6 +35,12 @@ namespace DB.Api.Application.Validators.Commands
                 .WithMessage("Should not be empty")
                 .EmailAddress(EmailValidationMode.AspNetCoreCompatible)
                 .WithMessage("Do not match format");
+            RuleFor(command => command.Type)
+                .GreaterThanOrEqualTo(1)
+                .When(w => w.Type.HasValue)
+                .WithMessage("Must be greater than or equal to 1");
+
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DB.Core.Entities.Identity
         public string Email { get; set; }
 
         [Required]
-        public UserType UserType { get; set; }
+        public short Type { get; set; }
 
         [Required]
         public DateTimeOffset CreateDate { get; set; }
