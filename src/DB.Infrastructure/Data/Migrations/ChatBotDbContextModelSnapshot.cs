@@ -104,11 +104,11 @@ namespace DB.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<short>("Type")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTimeOffset>("UpdateDate")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
