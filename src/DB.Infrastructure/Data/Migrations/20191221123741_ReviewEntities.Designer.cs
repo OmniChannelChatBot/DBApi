@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ChatBotDbContext))]
-    [Migration("20191221113120_ReviewEntities")]
+    [Migration("20191221123741_ReviewEntities")]
     partial class ReviewEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,11 +106,11 @@ namespace DB.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<short>("Type")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTimeOffset>("UpdateDate")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
