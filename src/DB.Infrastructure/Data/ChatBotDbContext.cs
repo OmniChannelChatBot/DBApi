@@ -12,6 +12,7 @@ namespace DB.Infrastructure.Data
         }
 
         public DbSet<ChatRoomEntity> ChatRooms { get; set; }
+
         public DbSet<ChatMessageEntity> ChatMessages { get; set; }
 
         public DbSet<UserEntity> Users { get; set; }

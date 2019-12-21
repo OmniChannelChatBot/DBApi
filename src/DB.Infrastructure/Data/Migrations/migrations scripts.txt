@@ -1,1 +1,4 @@
- dotnet ef migrations add fixMessages --project src\DB.Api\DB.Api.csproj
+ 
+ cd <your path>\OmniChannelChatBot\DBApi
+ dotnet ef migrations add ReviewEntities --project "src\DB.Infrastructure\DB.Infrastructure.csproj" --startup-project "src\DB.Api\DB.Api.csproj"
+ dotnet ef database update --project "src\DB.Infrastructure\DB.Infrastructure.csproj" --startup-project "src\DB.Api\DB.Api.csproj"

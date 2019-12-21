@@ -13,6 +13,6 @@ namespace DB.Core.Entities.Chat
         [Required]
         public DateTimeOffset CreateDate { get; set; }
 
-        public IReadOnlyList<UserEntity> Users { get; set; }
+        public List<UserEntity> Users { get; set; }
     }
 }
