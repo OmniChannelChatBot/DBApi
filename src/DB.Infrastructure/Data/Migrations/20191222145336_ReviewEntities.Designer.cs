@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ChatBotDbContext))]
-    [Migration("20191221123741_ReviewEntities")]
+    [Migration("20191222145336_ReviewEntities")]
     partial class ReviewEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace DB.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ChatRoomId")
+                    b.Property<int>("ChatUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("CreateDate")
@@ -44,10 +44,9 @@ namespace DB.Infrastructure.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ChatUserId");
 
                     b.ToTable("ChatMessages");
                 });
@@ -67,11 +66,37 @@ namespace DB.Infrastructure.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.HasKey("Id");
 
                     b.ToTable("ChatRooms");
+                });
+
+            modelBuilder.Entity("DB.Core.Entities.Chat.ChatUserEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ChatRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatRoomId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ChatUsers");
                 });
 
             modelBuilder.Entity("DB.Core.Entities.Identity.UserEntity", b =>
@@ -81,53 +106,69 @@ namespace DB.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ChatRoomEntityId")
-                        .HasColumnType("int");
-
                     b.Property<DateTimeOffset>("CreateDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short>("Type")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("UpdateDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChatRoomEntityId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DB.Core.Entities.Identity.UserEntity", b =>
+            modelBuilder.Entity("DB.Core.Entities.Chat.ChatMessageEntity", b =>
                 {
-                    b.HasOne("DB.Core.Entities.Chat.ChatRoomEntity", null)
-                        .WithMany("Users")
-                        .HasForeignKey("ChatRoomEntityId");
+                    b.HasOne("DB.Core.Entities.Chat.ChatUserEntity", "ChatUser")
+                        .WithMany("ChatMessages")
+                        .HasForeignKey("ChatUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DB.Core.Entities.Chat.ChatUserEntity", b =>
+                {
+                    b.HasOne("DB.Core.Entities.Chat.ChatRoomEntity", "ChatRoom")
+                        .WithMany("ChatUsers")
+                        .HasForeignKey("ChatRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DB.Core.Entities.Identity.UserEntity", "User")
+                        .WithMany("ChatUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
