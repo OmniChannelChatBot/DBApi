@@ -57,7 +57,8 @@ namespace DB.Infrastructure.Data
         public async Task<int> AddAsync(UserEntity entity, CancellationToken cancellationToken = default)
         {
             _context.Users.Add(entity);
-            var d = await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
             return entity.Id;
         }
 

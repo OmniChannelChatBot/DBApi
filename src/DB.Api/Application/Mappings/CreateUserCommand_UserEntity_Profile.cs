@@ -10,9 +10,10 @@ namespace DB.Api.Application.Mappings
         public CreateUserCommand_UserEntity_Profile()
         {
             CreateMap<CreateUserCommand, UserEntity>()
-                .ForMember(d => d.Type, mo => mo.MapFrom(m => m.Type ?? 1))
+                .ForMember(d => d.Guid, mo => mo.MapFrom(m => Guid.NewGuid()))
                 .ForMember(d => d.CreateDate, mo => mo.MapFrom(m => DateTimeOffset.UtcNow))
-                .ForMember(d => d.UpdateDate, mo => mo.MapFrom(m => DateTimeOffset.UtcNow));
+                .ForMember(d => d.UpdateDate, mo => mo.MapFrom(m => DateTimeOffset.UtcNow))
+                .ForMember(d => d.Type, mo => mo.MapFrom(m => m.Type ?? 1));
         }
     }
 }
