@@ -27,7 +27,7 @@ namespace DB.Core.Entities.Identity
         public string Email { get; set; }
 
         [Required]
-        public short Type { get; set; }
+        public UserType Type { get; set; }
 
         [Required]
         public DateTimeOffset CreateDate { get; set; }
@@ -35,6 +35,6 @@ namespace DB.Core.Entities.Identity
         [Required]
         public DateTimeOffset UpdateDate { get; set; }
 
-        public List<ChatMessageEntity> ChatMessages { get; set; }
+        public List<ChatUserEntity> ChatUsers { get; set; }
     }
 }

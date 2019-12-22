@@ -1,5 +1,4 @@
-﻿using DB.Core.Entities.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,8 +13,6 @@ namespace DB.Core.Entities.Chat
         [Required]
         public DateTimeOffset CreateDate { get; set; }
 
-        public List<UserEntity> Users { get; set; }
-
-        public List<ChatMessageEntity> ChatMessages { get; set; }
+        public List<ChatUserEntity> ChatUsers { get; set; }
     }
 }

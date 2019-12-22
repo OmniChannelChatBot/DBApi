@@ -16,7 +16,7 @@ namespace DB.Infrastructure.Data
             _context = context;
 
         public async Task<IReadOnlyList<ChatRoomEntity>> GetChatRoomsAsync(int userId) =>
-            await _context.ChatRooms.Where(cr => cr.Users.Any(u => u.Id == userId)).ToArrayAsync();
+            await _context.ChatRooms.Where(cr => cr.ChatUsers.Any(u => u.UserId == userId)).ToArrayAsync();
 
         public Task<ChatRoomEntity> GetByIdAsync(int id) =>
             throw new NotImplementedException();
