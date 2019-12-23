@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DB.Core.Entities
 {
@@ -7,11 +8,13 @@ namespace DB.Core.Entities
         /// <summary>
         /// For known users stored in database
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// For channel users
         /// </summary>
-        public Guid Guid { get; set; } = Guid.NewGuid();
+        [Required]
+        public Guid Guid { get; set; }
     }
 }

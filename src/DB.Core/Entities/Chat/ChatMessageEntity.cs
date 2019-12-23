@@ -1,19 +1,24 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DB.Core.Entities.Chat
 {
     public class ChatMessageEntity : BaseEntity
     {
-        public int ChatRoomId { get; set; }
+        [Required]
+        public int ChatUserId { get; set; }
 
-        public Guid UserGuid { get; set; }
-
-        public string UserName { get; set; }
-
+        [Required]
         public string Text { get; set; }
 
-        public ChatMessageType Type { get; set; } = ChatMessageType.Text;
+        [Required]
+        public ChatMessageType Type { get; set; }
 
-        public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
+        [Required]
+        public DateTimeOffset CreateDate { get; set; }
+
+        [ForeignKey(nameof(ChatUserId))]
+        public ChatUserEntity ChatUser { get; set; }
     }
 }

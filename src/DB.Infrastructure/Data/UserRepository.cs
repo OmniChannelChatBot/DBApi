@@ -1,4 +1,5 @@
-﻿using DB.Core.Entities.Identity;
+﻿using DB.Core.Entities.Chat;
+using DB.Core.Entities.Identity;
 using DB.Core.Exceptions;
 using DB.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,13 @@ namespace DB.Infrastructure.Data
 
             if (chatRoom != default)
             {
-                var user = await GetByIdAsync(id);
+                var chatUserEntity = new ChatUserEntity
+                {
+                    UserId = id,
+                    ChatRoomId = chatRoom.Id
+                };
 
-                chatRoom.Users.Add(user);
+                _context.ChatUsers.Add(chatUserEntity);
 
                 await _context.SaveChangesAsync();
             }
@@ -41,16 +46,6 @@ namespace DB.Infrastructure.Data
 
         public Task<UserEntity> GetUserAsync(string userName, string password) =>
             _context.Users.FirstOrDefaultAsync(u => u.Username == userName && u.Password == password);
-
-        public async Task<IReadOnlyList<UserEntity>> GetUsersAsync(Guid roomGuid)
-        {
-            var chatRoom = await _context.ChatRooms
-                .Include(cr => cr.Users)
-                .FirstOrDefaultAsync(m => m.Guid == roomGuid);
-
-            return chatRoom?.Users?.ToArray() ??
-                throw new DBException($"invalid roomGuid: {roomGuid}");
-        }
 
         public async Task<UserEntity> GetByIdAsync(int id) =>
             await _context.Users.FindAsync(id);
