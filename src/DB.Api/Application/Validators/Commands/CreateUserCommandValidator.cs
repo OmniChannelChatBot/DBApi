@@ -39,8 +39,6 @@ namespace DB.Api.Application.Validators.Commands
                 .GreaterThanOrEqualTo(1)
                 .When(w => w.Type.HasValue)
                 .WithMessage("Must be greater than or equal to 1");
-
-
         }
     }
 }

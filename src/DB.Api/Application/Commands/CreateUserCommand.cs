@@ -20,6 +20,6 @@ namespace DB.Api.Application.Commands
         [Required]
         public string Email { get; set; }
 
-        public int? Type { get; set; }
+        public short? Type { get; set; }
     }
 }
