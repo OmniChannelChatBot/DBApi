@@ -23,13 +23,13 @@ namespace DB.Infrastructure.Data
 
             if (chatRoom != default)
             {
-                var chatUserEntity = new ChatUserEntity
+                var chatUserEntity = new ChatChannelEntity
                 {
                     UserId = id,
                     ChatRoomId = chatRoom.Id
                 };
 
-                _context.ChatUsers.Add(chatUserEntity);
+                _context.ChatChannels.Add(chatUserEntity);
 
                 await _context.SaveChangesAsync(cancellationToken);
             }

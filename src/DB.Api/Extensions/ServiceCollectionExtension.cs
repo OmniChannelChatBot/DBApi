@@ -1,7 +1,4 @@
-﻿using DB.Api.Application.BehaviorHandlers;
-using DB.Api.Application.CommandHandlers;
-using DB.Api.Application.Validators;
-using DB.Api.Controllers.Filters;
+﻿using DB.Api.Controllers.Filters;
 using DB.Core.Interfaces;
 using DB.Infrastructure.Data;
 using FluentValidation;
@@ -36,7 +33,8 @@ namespace DB.Api.Extensions
             .AddDbContext<ChatBotDbContext>(options => options.UseSqlServer(connectionString))
             .AddScoped<IChatMessageRepository, ChatMessageRepository>()
             .AddScoped<IChatRoomRepository, ChatRoomRepository>()
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
         public static IServiceCollection AddHealthCheckServices(this IServiceCollection services)
         {

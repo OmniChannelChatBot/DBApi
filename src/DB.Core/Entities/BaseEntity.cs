@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DB.Core.Entities
 {
@@ -8,6 +9,7 @@ namespace DB.Core.Entities
         /// <summary>
         /// For known users stored in database
         /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 
@@ -16,5 +18,11 @@ namespace DB.Core.Entities
         /// </summary>
         [Required]
         public Guid Guid { get; set; }
+
+        [Required]
+        public DateTimeOffset CreateDate { get; set; }
+
+        [Required]
+        public DateTimeOffset UpdateDate { get; set; }
     }
 }
