@@ -20,7 +20,11 @@ namespace DB.Api.Extensions
         public static IMvcBuilder AddApiServices(this IServiceCollection services) => services
             .AddFluentValidators()
             .AddMvcActionFilters()
-            .AddControllers(o => o.Filters.AddService<ApiActionFilter>())
+            .AddControllers(o =>
+            {
+                o.Filters.AddService<ApiActionFilter>();
+                o.Filters.AddService<ApiResultFilter>();
+            })
                 .AddJsonOptions(o => o.JsonSerializerOptions.IgnoreNullValues = true)
                 .ConfigureApiBehaviorOptions(options =>
                 {
@@ -80,6 +84,7 @@ namespace DB.Api.Extensions
             });
 
         private static IServiceCollection AddMvcActionFilters(this IServiceCollection services) => services
-            .AddScoped<ApiActionFilter>();
+            .AddScoped<ApiActionFilter>()
+            .AddScoped<ApiResultFilter>();
     }
 }

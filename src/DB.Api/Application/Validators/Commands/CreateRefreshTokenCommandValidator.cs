@@ -1,5 +1,7 @@
 ﻿using DB.Api.Application.Commands;
 using FluentValidation;
+using System;
+using System.Net;
 
 namespace DB.Api.Application.Validators.Commands
 {
@@ -15,8 +17,13 @@ namespace DB.Api.Application.Validators.Commands
                 .WithMessage("Must not be null")
                 .NotEmpty()
                 .WithMessage("Should not be empty");
-            RuleFor(command => command.Expires);
-            RuleFor(command => command.RemoteIpAddress);
+            RuleFor(command => command.Expires)
+                .GreaterThan(DateTimeOffset.UtcNow)
+                .WithMessage("Must be greater than current date");
+            RuleFor(command => command.RemoteIpAddress)
+                .Must(s => IPAddress.TryParse(s, out var _))
+                .When(s => !string.IsNullOrEmpty(s.RemoteIpAddress))
+                .WithMessage("Must match IP Address");
         }
     }
 }

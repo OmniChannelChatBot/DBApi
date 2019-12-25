@@ -22,17 +22,17 @@ namespace DB.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Created", typeof(int))]
         public async Task<IActionResult> CreateRefreshTokenAsync([FromBody, BindRequired]CreateRefreshTokenCommand command)
         {
-            var userId = await _mediator.Send(command);
-            return Ok(userId);
+            var refreshTokenId = await _mediator.Send(command);
+            return Ok(refreshTokenId);
         }
 
-        [HttpGet("{Token}")]
+        [HttpGet("token/{Token}")]
         [SwaggerOperation(OperationId = nameof(GetRefreshTokenByTokenAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetRefreshTokenByTokenQueryResponse))]
         public async Task<IActionResult> GetRefreshTokenByTokenAsync([FromRoute]GetRefreshTokenByTokenQuery query)
         {
-            var user = await _mediator.Send(query);
-            return Ok(user);
+            var refreshToken = await _mediator.Send(query);
+            return Ok(refreshToken);
         }
     }
 }
