@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DB.Infrastructure.Data
@@ -15,26 +16,26 @@ namespace DB.Infrastructure.Data
         public ChatMessageRepository(ChatBotDbContext context) =>
             _context = context;
 
-        public async Task<IReadOnlyList<ChatMessageEntity>> GetMessagesForChatRoomAsync(Guid roomGuid) =>
-            await _context.ChatMessages.Where(m => m.Guid == roomGuid).ToArrayAsync();
+        public async Task<IReadOnlyList<ChatMessageEntity>> GetMessagesForChatRoomAsync(Guid roomGuid, CancellationToken cancellationToken = default) =>
+            await _context.ChatMessages.Where(m => m.Guid == roomGuid).ToArrayAsync(cancellationToken);
 
-        public Task<ChatMessageEntity> GetByIdAsync(int id) =>
+        public Task<ChatMessageEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
-        public async Task<IReadOnlyList<ChatMessageEntity>> GetListAsync() =>
-            await _context.ChatMessages.ToArrayAsync();
+        public async Task<IReadOnlyList<ChatMessageEntity>> GetListAsync(CancellationToken cancellationToken = default) =>
+            await _context.ChatMessages.ToArrayAsync(cancellationToken);
 
-        public Task AddAsync(ChatMessageEntity entity)
+        public Task<int> AddAsync(ChatMessageEntity entity, CancellationToken cancellationToken = default)
         {
             _context.ChatMessages.Add(entity);
 
-            return _context.SaveChangesAsync();
+            return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public Task UpdateAsync(ChatMessageEntity entity) =>
+        public Task UpdateAsync(ChatMessageEntity entity, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
-        public Task DeleteAsync(int id) =>
+        public Task DeleteAsync(int id, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
     }
 }

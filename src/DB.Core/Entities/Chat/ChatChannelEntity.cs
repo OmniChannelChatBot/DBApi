@@ -5,13 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DB.Core.Entities.Chat
 {
-    public class ChatUserEntity : BaseEntity
+    public class ChatChannelEntity : BaseEntity
     {
         [Required]
         public int ChatRoomId { get; set; }
 
         [Required]
         public int UserId { get; set; }
+
+        [Required]
+        public short Type { get; set; }
 
         [ForeignKey(nameof(ChatRoomId))]
         public ChatRoomEntity ChatRoom { get; set; }

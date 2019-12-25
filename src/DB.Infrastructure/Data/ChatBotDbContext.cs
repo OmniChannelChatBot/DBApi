@@ -13,10 +13,12 @@ namespace DB.Infrastructure.Data
 
         public DbSet<ChatRoomEntity> ChatRooms { get; set; }
 
-        public DbSet<ChatUserEntity> ChatUsers { get; set; }
+        public DbSet<ChatChannelEntity> ChatChannels { get; set; }
 
         public DbSet<ChatMessageEntity> ChatMessages { get; set; }
 
         public DbSet<UserEntity> Users { get; set; }
+
+        public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Commands
 {
-    public class CreateUserCommand: IRequest<int>
+    public class CreateUserCommand : IRequest<int>
     {
         [Required]
         public string FirstName { get; set; }
@@ -19,5 +19,7 @@ namespace DB.Api.Application.Commands
 
         [Required]
         public string Email { get; set; }
+
+        public short? Type { get; set; }
     }
 }

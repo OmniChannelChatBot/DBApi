@@ -1,7 +1,4 @@
-﻿using DB.Api.Application.BehaviorHandlers;
-using DB.Api.Application.CommandHandlers;
-using DB.Api.Application.Validators;
-using DB.Api.Controllers.Filters;
+﻿using DB.Api.Controllers.Filters;
 using DB.Core.Interfaces;
 using DB.Infrastructure.Data;
 using FluentValidation;
@@ -23,7 +20,11 @@ namespace DB.Api.Extensions
         public static IMvcBuilder AddApiServices(this IServiceCollection services) => services
             .AddFluentValidators()
             .AddMvcActionFilters()
-            .AddControllers(o => o.Filters.AddService<ApiActionFilter>())
+            .AddControllers(o =>
+            {
+                o.Filters.AddService<ApiActionFilter>();
+                o.Filters.AddService<ApiResultFilter>();
+            })
                 .AddJsonOptions(o => o.JsonSerializerOptions.IgnoreNullValues = true)
                 .ConfigureApiBehaviorOptions(options =>
                 {
@@ -36,7 +37,8 @@ namespace DB.Api.Extensions
             .AddDbContext<ChatBotDbContext>(options => options.UseSqlServer(connectionString))
             .AddScoped<IChatMessageRepository, ChatMessageRepository>()
             .AddScoped<IChatRoomRepository, ChatRoomRepository>()
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
         public static IServiceCollection AddHealthCheckServices(this IServiceCollection services)
         {
@@ -82,6 +84,7 @@ namespace DB.Api.Extensions
             });
 
         private static IServiceCollection AddMvcActionFilters(this IServiceCollection services) => services
-            .AddScoped<ApiActionFilter>();
+            .AddScoped<ApiActionFilter>()
+            .AddScoped<ApiResultFilter>();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DB.Core.Entities.Chat;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,14 +26,10 @@ namespace DB.Core.Entities.Identity
         public string Email { get; set; }
 
         [Required]
-        public UserType Type { get; set; }
+        public short Type { get; set; }
 
-        [Required]
-        public DateTimeOffset CreateDate { get; set; }
+        public List<ChatChannelEntity> ChatChannel { get; set; }
 
-        [Required]
-        public DateTimeOffset UpdateDate { get; set; }
-
-        public List<ChatUserEntity> ChatUsers { get; set; }
+        public List<RefreshTokenEntity> RefreshTokens { get; set; }
     }
 }
