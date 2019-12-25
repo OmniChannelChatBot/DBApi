@@ -29,9 +29,16 @@ namespace DB.Api.Controllers
         [HttpGet("token/{Token}")]
         [SwaggerOperation(OperationId = nameof(GetRefreshTokenByTokenAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetRefreshTokenByTokenQueryResponse))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Received", typeof(ApiProblemDetails))]
         public async Task<IActionResult> GetRefreshTokenByTokenAsync([FromRoute]GetRefreshTokenByTokenQuery query)
         {
             var refreshToken = await _mediator.Send(query);
+
+            if(refreshToken == default)
+            {
+                return NotFound();
+            }
+
             return Ok(refreshToken);
         }
     }

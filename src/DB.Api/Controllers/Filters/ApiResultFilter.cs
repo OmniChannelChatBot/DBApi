@@ -15,20 +15,17 @@ namespace DB.Api.Controllers.Filters
                 case NotFoundObjectResult nfor:
                     context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
                     ResultApiProblemDetails(context, nfor.Value.ToString());
-
-                    return Task.FromCanceled(new CancellationToken(true));
+                    break;
 
                 case BadRequestObjectResult bror:
                     context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
                     ResultApiProblemDetails(context, bror.Value.ToString());
-
-                    return Task.FromCanceled(new CancellationToken(true));
+                    break;
 
                 case NotFoundResult _:
                     context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
                     ResultApiProblemDetails(context);
-
-                    return Task.FromCanceled(new CancellationToken(true));
+                    break;
             }
 
             return next();
