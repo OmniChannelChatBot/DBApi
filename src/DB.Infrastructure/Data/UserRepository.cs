@@ -22,7 +22,7 @@ namespace DB.Infrastructure.Data
 
         public async Task<int> AddAsync(UserEntity entity, CancellationToken cancellationToken = default)
         {
-            _context.Users.Add(entity);
+            await _context.Users.AddAsync(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
             return entity.Id;
