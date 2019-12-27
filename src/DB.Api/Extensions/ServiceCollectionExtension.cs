@@ -1,11 +1,11 @@
-﻿using DB.Api.Controllers.Filters;
-using DB.Core.Interfaces;
+﻿using DB.Core.Interfaces;
 using DB.Infrastructure.Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using OCCBPackage.Filters;
 
 namespace DB.Api.Extensions
 {
