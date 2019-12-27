@@ -17,40 +17,6 @@ namespace DB.Infrastructure.Data
         public UserRepository(ChatBotDbContext context) =>
             _context = context;
 
-        public async Task AddUserToRoomAsync(Guid roomGuid, int id, CancellationToken cancellationToken = default)
-        {
-            var chatRoom = await _context.ChatRooms.FirstOrDefaultAsync(cr => cr.Guid == roomGuid, cancellationToken);
-
-            if (chatRoom != default)
-            {
-                var chatUserEntity = new ChatChannelEntity
-                {
-                    UserId = id,
-                    ChatRoomId = chatRoom.Id
-                };
-
-                _context.ChatChannels.Add(chatUserEntity);
-
-                await _context.SaveChangesAsync(cancellationToken);
-            }
-            else
-            {
-                throw new DBException($"invalid roomGuid: {roomGuid}");
-            }
-        }
-
-        public Task<bool> CheckUserNameAsync(string userName, CancellationToken cancellationToken = default) =>
-            _context.Users.AnyAsync(u => u.Username == userName, cancellationToken);
-
-        public Task<bool> CheckUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
-            _context.Users.AnyAsync(u => u.Username == userName && u.Password == password, cancellationToken);
-
-        public Task<UserEntity> GetUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
-            _context.Users.FirstOrDefaultAsync(u => u.Username == userName && u.Password == password, cancellationToken);
-
-        public async Task<UserEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
-            await _context.Users.FindAsync(id, cancellationToken);
-
         public Task<IReadOnlyList<UserEntity>> GetListAsync(CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
@@ -78,5 +44,39 @@ namespace DB.Infrastructure.Data
                 await _context.SaveChangesAsync(cancellationToken);
             };
         }
+
+        public Task<bool> AvailabilityUsernameAsync(string username, CancellationToken cancellationToken = default) =>
+            _context.Users.AnyAsync(u => u.Username == username, cancellationToken);
+
+        public async Task AddUserToRoomAsync(Guid roomGuid, int id, CancellationToken cancellationToken = default)
+        {
+            var chatRoom = await _context.ChatRooms.FirstOrDefaultAsync(cr => cr.Guid == roomGuid, cancellationToken);
+
+            if (chatRoom != default)
+            {
+                var chatUserEntity = new ChatChannelEntity
+                {
+                    UserId = id,
+                    ChatRoomId = chatRoom.Id
+                };
+
+                _context.ChatChannels.Add(chatUserEntity);
+
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+            else
+            {
+                throw new DBException($"invalid roomGuid: {roomGuid}");
+            }
+        }
+
+        public Task<bool> CheckUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
+            _context.Users.AnyAsync(u => u.Username == userName && u.Password == password, cancellationToken);
+
+        public Task<UserEntity> GetUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
+            _context.Users.FirstOrDefaultAsync(u => u.Username == userName && u.Password == password, cancellationToken);
+
+        public async Task<UserEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
+            await _context.Users.FindAsync(id, cancellationToken);
     }
 }

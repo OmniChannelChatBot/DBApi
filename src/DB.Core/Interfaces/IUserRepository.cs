@@ -9,7 +9,7 @@ namespace DB.Core.Interfaces
     {
         Task AddUserToRoomAsync(Guid roomGuid, int id, CancellationToken cancellationToken = default);
 
-        Task<bool> CheckUserNameAsync(string userName, CancellationToken cancellationToken = default);
+        Task<bool> AvailabilityUsernameAsync(string username, CancellationToken cancellationToken = default);
 
         Task<bool> CheckUserAsync(string userName, string password, CancellationToken cancellationToken = default);
 

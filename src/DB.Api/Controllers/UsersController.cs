@@ -18,9 +18,9 @@ namespace DB.Api.Controllers
             _mediator = mediator;
 
         [HttpPost]
-        [SwaggerOperation(OperationId = nameof(CreateUserAsync))]
-        [SwaggerResponse(StatusCodes.Status200OK, "Created", typeof(int))]
-        public async Task<IActionResult> CreateUserAsync([FromBody, BindRequired]CreateUserCommand command)
+        [SwaggerOperation(OperationId = nameof(AddUserAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Added", typeof(int))]
+        public async Task<IActionResult> AddUserAsync([FromBody, BindRequired]AddUserCommand command)
         {
             var userId = await _mediator.Send(command);
             return Ok(userId);
@@ -51,6 +51,15 @@ namespace DB.Api.Controllers
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpGet("availability/{Username}")]
+        [SwaggerOperation(OperationId = nameof(AvailabilityUsernameAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Available", typeof(bool))]
+        public async Task<IActionResult> AvailabilityUsernameAsync([FromRoute]GetAvailabilityUsernameQuery query)
+        {
+            var availability = await _mediator.Send(query);
+            return Ok(availability);
         }
     }
 }

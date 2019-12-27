@@ -4,9 +4,9 @@ using FluentValidation.Validators;
 
 namespace DB.Api.Application.Validators.Commands
 {
-    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
     {
-        public CreateUserCommandValidator()
+        public AddUserCommandValidator()
         {
             RuleFor(command => command.FirstName)
                 .NotNull()
