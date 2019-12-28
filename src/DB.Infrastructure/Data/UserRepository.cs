@@ -70,13 +70,13 @@ namespace DB.Infrastructure.Data
             }
         }
 
-        public Task<bool> CheckUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
-            _context.Users.AnyAsync(u => u.Username == userName && u.Password == password, cancellationToken);
-
         public Task<UserEntity> GetUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
             _context.Users.FirstOrDefaultAsync(u => u.Username == userName && u.Password == password, cancellationToken);
 
         public async Task<UserEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
             await _context.Users.FindAsync(id, cancellationToken);
+
+        public Task<UserEntity> GetByUsernameAsync(string userName, CancellationToken cancellationToken = default) =>
+            _context.Users.FirstOrDefaultAsync(u => u.Username == userName, cancellationToken);
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Models
 {
-    public class GetUserByIdQueryResponse
+    public class GetUserByUsernameQueryResponse
     {
         [Required]
         public int Id { get; set; }

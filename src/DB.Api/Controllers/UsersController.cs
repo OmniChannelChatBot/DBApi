@@ -41,6 +41,12 @@ namespace DB.Api.Controllers
         public async Task<IActionResult> GetUserByIdAsync([FromRoute]GetUserByIdQuery query)
         {
             var user = await _mediator.Send(query);
+
+            if (user == default)
+            {
+                return NotFound();
+            }
+
             return Ok(user);
         }
 
@@ -53,13 +59,28 @@ namespace DB.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("availability/{Username}")]
+        [HttpGet("availability/username/{Username}")]
         [SwaggerOperation(OperationId = nameof(AvailabilityUsernameAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Available", typeof(bool))]
         public async Task<IActionResult> AvailabilityUsernameAsync([FromRoute]GetAvailabilityUsernameQuery query)
         {
             var availability = await _mediator.Send(query);
             return Ok(availability);
+        }
+
+        [HttpGet("username/{Username}")]
+        [SwaggerOperation(OperationId = nameof(GetUserByUsernameAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetUserByUsernameQueryResponse))]
+        public async Task<IActionResult> GetUserByUsernameAsync([FromRoute]GetUserByUsernameQuery query)
+        {
+            var user = await _mediator.Send(query);
+
+            if (user == default)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
         }
     }
 }
