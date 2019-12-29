@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Commands
 {
-    public class CreateUserCommand : IRequest<int>
+    public class AddUserCommand : IRequest<int>
     {
         [Required]
         public string FirstName { get; set; }
@@ -15,7 +15,10 @@ namespace DB.Api.Application.Commands
         public string Username { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public byte[] PasswordHash { get; set; }
+
+        [Required]
+        public byte[] PasswordSalt { get; set; }
 
         [Required]
         public string Email { get; set; }

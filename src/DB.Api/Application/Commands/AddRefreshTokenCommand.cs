@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Commands
 {
-    public class CreateRefreshTokenCommand : IRequest<int>
+    public class AddRefreshTokenCommand : IRequest<int>
     {
         [Required]
         public int UserId { get; set; }

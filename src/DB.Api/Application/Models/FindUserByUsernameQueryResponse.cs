@@ -1,37 +1,27 @@
-﻿using DB.Core.Entities.Chat;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DB.Core.Entities.Identity
+namespace DB.Api.Application.Models
 {
-    public class UserEntity : BaseEntity
+    public class FindUserByUsernameQueryResponse
     {
         [Required]
-        [MaxLength(250)]
-        public string Username { get; set; }
-
+        public int Id { get; set; }
         [Required]
-        [MaxLength(250)]
+        public Guid Guid { get; set; }
+        [Required]
         public string FirstName { get; set; }
-
         [Required]
-        [MaxLength(250)]
         public string LastName { get; set; }
-
+        [Required]
+        public string Username { get; set; }
         [Required]
         public byte[] PasswordHash { get; set; }
         [Required]
         public byte[] PasswordSalt { get; set; }
-
         [Required]
-        [MaxLength(250)]
         public string Email { get; set; }
-
         [Required]
         public short Type { get; set; }
-
-        public List<ChatChannelEntity> ChatChannel { get; set; }
-
-        public List<RefreshTokenEntity> RefreshTokens { get; set; }
     }
 }

@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace DB.Api.Application.CommandHandlers
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+    public class AddUserCommandHandler : IRequestHandler<AddUserCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public CreateUserCommandHandler(IMapper mapper, IUserRepository userRepository)
+        public AddUserCommandHandler(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
         }
 
-        public Task<int> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+        public Task<int> Handle(AddUserCommand command, CancellationToken cancellationToken)
         {
             var userEntity = _mapper.Map<UserEntity>(command);
             return _userRepository.AddAsync(userEntity, cancellationToken);

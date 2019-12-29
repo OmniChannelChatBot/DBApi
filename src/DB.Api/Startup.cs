@@ -19,7 +19,7 @@ namespace DB.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCustomHealthChecks();
+            services.AddHealthCheckServices();
             services.AddCorrelate(options => options.RequestHeaders = new[] { "X-Correlation-ID" });
             services.AddDatabaseServices(Configuration.GetConnectionString("DefaultConnection"));
             services.AddAutoMapper(typeof(Startup));

@@ -19,9 +19,9 @@ namespace DB.Api.Controllers
             _mediator = mediator;
 
         [HttpPost]
-        [SwaggerOperation(OperationId = nameof(CreateRefreshTokenAsync))]
-        [SwaggerResponse(StatusCodes.Status200OK, "Created", typeof(int))]
-        public async Task<IActionResult> CreateRefreshTokenAsync([FromBody, BindRequired]CreateRefreshTokenCommand command)
+        [SwaggerOperation(OperationId = nameof(AddRefreshTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Added", typeof(int))]
+        public async Task<IActionResult> AddRefreshTokenAsync([FromBody, BindRequired]AddRefreshTokenCommand command)
         {
             var refreshTokenId = await _mediator.Send(command);
             return Ok(refreshTokenId);
