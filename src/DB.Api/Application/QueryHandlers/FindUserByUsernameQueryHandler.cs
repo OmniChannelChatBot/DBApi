@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace DB.Api.Application.QueryHandlers
 {
-    public class GetUserByUsernameQueryHandler : IRequestHandler<GetUserByUsernameQuery, GetUserByUsernameQueryResponse>
+    public class FindUserByUsernameQueryHandler : IRequestHandler<FindUserByUsernameQuery, FindUserByUsernameQueryResponse>
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public GetUserByUsernameQueryHandler(IMapper mapper, IUserRepository userRepository)
+        public FindUserByUsernameQueryHandler(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
         }
 
-        public async Task<GetUserByUsernameQueryResponse> Handle(GetUserByUsernameQuery query, CancellationToken cancellationToken)
+        public async Task<FindUserByUsernameQueryResponse> Handle(FindUserByUsernameQuery query, CancellationToken cancellationToken)
         {
             var userEntity = await _userRepository.GetByUsernameAsync(query.Username, cancellationToken);
-            return _mapper.Map<GetUserByUsernameQueryResponse>(userEntity);
+            return _mapper.Map<FindUserByUsernameQueryResponse>(userEntity);
         }
     }
 }

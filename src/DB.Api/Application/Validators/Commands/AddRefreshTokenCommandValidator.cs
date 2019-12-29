@@ -5,9 +5,9 @@ using System.Net;
 
 namespace DB.Api.Application.Validators.Commands
 {
-    public class CreateRefreshTokenCommandValidator : AbstractValidator<CreateRefreshTokenCommand>
+    public class AddRefreshTokenCommandValidator : AbstractValidator<AddRefreshTokenCommand>
     {
-        public CreateRefreshTokenCommandValidator()
+        public AddRefreshTokenCommandValidator()
         {
             RuleFor(command => command.UserId)
                 .GreaterThanOrEqualTo(1)

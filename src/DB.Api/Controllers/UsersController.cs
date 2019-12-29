@@ -69,17 +69,11 @@ namespace DB.Api.Controllers
         }
 
         [HttpGet("username/{Username}")]
-        [SwaggerOperation(OperationId = nameof(GetUserByUsernameAsync))]
-        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetUserByUsernameQueryResponse))]
-        public async Task<IActionResult> GetUserByUsernameAsync([FromRoute]GetUserByUsernameQuery query)
+        [SwaggerOperation(OperationId = nameof(FindUserByUsernameAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(FindUserByUsernameQueryResponse))]
+        public async Task<IActionResult> FindUserByUsernameAsync([FromRoute]FindUserByUsernameQuery query)
         {
             var user = await _mediator.Send(query);
-
-            if (user == default)
-            {
-                return NotFound();
-            }
-
             return Ok(user);
         }
     }

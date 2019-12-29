@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DB.Api.Application.Validators.Queries
 {
-    public class GetUserByUsernameQueryValidator : AbstractValidator<GetUserByUsernameQuery>
+    public class FindUserByUsernameQueryValidator : AbstractValidator<FindUserByUsernameQuery>
     {
-        public GetUserByUsernameQueryValidator()
+        public FindUserByUsernameQueryValidator()
         {
             RuleFor(query => query.Username)
                 .NotNull()

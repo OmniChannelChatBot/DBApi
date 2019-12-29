@@ -23,7 +23,12 @@ namespace DB.Api.Application.Validators.Commands
                 .WithMessage("Must not be null")
                 .NotEmpty()
                 .WithMessage("Should not be empty");
-            RuleFor(command => command.Password)
+            RuleFor(command => command.PasswordHash)
+                .NotNull()
+                .WithMessage("Must not be null")
+                .NotEmpty()
+                .WithMessage("Should not be empty");
+            RuleFor(command => command.PasswordSalt)
                 .NotNull()
                 .WithMessage("Must not be null")
                 .NotEmpty()

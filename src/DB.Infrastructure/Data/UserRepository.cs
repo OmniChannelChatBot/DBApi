@@ -70,9 +70,6 @@ namespace DB.Infrastructure.Data
             }
         }
 
-        public Task<UserEntity> GetUserAsync(string userName, string password, CancellationToken cancellationToken = default) =>
-            _context.Users.FirstOrDefaultAsync(u => u.Username == userName && u.Password == password, cancellationToken);
-
         public async Task<UserEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
             await _context.Users.FindAsync(id, cancellationToken);
 

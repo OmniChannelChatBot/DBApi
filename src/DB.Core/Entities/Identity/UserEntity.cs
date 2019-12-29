@@ -19,7 +19,9 @@ namespace DB.Core.Entities.Identity
         public string LastName { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public byte[] PasswordHash { get; set; }
+        [Required]
+        public byte[] PasswordSalt { get; set; }
 
         [Required]
         [MaxLength(250)]

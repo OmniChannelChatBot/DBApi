@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Queries
 {
-    public class GetUserByUsernameQuery : IRequest<GetUserByUsernameQueryResponse>
+    public class FindUserByUsernameQuery : IRequest<FindUserByUsernameQueryResponse>
     {
         [Required]
         public string Username { get; set; }

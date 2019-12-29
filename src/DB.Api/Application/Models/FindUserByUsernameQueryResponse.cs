@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Models
 {
-    public class GetUserByUsernameQueryResponse
+    public class FindUserByUsernameQueryResponse
     {
         [Required]
         public int Id { get; set; }
@@ -16,6 +16,12 @@ namespace DB.Api.Application.Models
         [Required]
         public string Username { get; set; }
         [Required]
+        public byte[] PasswordHash { get; set; }
+        [Required]
+        public byte[] PasswordSalt { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
+        public short Type { get; set; }
     }
 }
