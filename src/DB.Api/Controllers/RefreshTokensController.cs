@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using OCCBPackage;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
@@ -31,6 +30,15 @@ namespace DB.Api.Controllers
         [SwaggerOperation(OperationId = nameof(DeleteRefreshTokenAsync))]
         [SwaggerResponse(StatusCodes.Status204NoContent, "Deleted")]
         public async Task<IActionResult> DeleteRefreshTokenAsync([FromBody, BindRequired]DeleteRefreshTokenCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(default);
+        }
+
+        [HttpPatch]
+        [SwaggerOperation(OperationId = nameof(UpdateRefreshTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Updated")]
+        public async Task<IActionResult> UpdateRefreshTokenAsync([FromBody, BindRequired]UpdateRefreshTokenCommand command)
         {
             await _mediator.Send(command);
             return Ok(default);
