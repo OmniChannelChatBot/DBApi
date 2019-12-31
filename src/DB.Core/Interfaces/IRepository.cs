@@ -11,6 +11,6 @@ namespace DB.Core.Interfaces
         Task<IReadOnlyList<T>> GetListAsync(CancellationToken cancellationToken = default);
         Task<int> AddAsync(T entity, CancellationToken cancellationToken = default);
         Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
-        Task DeleteAsync(int id, CancellationToken cancellationToken = default);
+        Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
     }
 }

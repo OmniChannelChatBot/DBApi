@@ -22,14 +22,17 @@ namespace DB.Infrastructure.Data
             return entity.Id;
         }
 
-        public Task DeleteAsync(int id, CancellationToken cancellationToken = default) =>
-            throw new System.NotImplementedException();
+        public Task DeleteAsync(RefreshTokenEntity entity, CancellationToken cancellationToken = default)
+        {
+            _context.RefreshTokens.Remove(entity);
+            return _context.SaveChangesAsync(cancellationToken);
+        }
 
         public Task<RefreshTokenEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
             throw new System.NotImplementedException();
 
-        public Task<RefreshTokenEntity> GetByTokenAsync(string token, CancellationToken cancellationToken = default) =>
-            _context.RefreshTokens.FirstOrDefaultAsync(f => f.Token == token, cancellationToken);
+        public Task<RefreshTokenEntity> FindByTokenAsync(string token, CancellationToken cancellationToken = default) =>
+            _context.RefreshTokens.AsNoTracking().FirstOrDefaultAsync(f => f.Token == token, cancellationToken);
 
         public Task<IReadOnlyList<RefreshTokenEntity>> GetListAsync(CancellationToken cancellationToken = default) =>
             throw new System.NotImplementedException();

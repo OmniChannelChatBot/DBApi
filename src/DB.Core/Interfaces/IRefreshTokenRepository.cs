@@ -6,6 +6,6 @@ namespace DB.Core.Interfaces
 {
     public interface IRefreshTokenRepository : IRepository<RefreshTokenEntity>
     {
-        Task<RefreshTokenEntity> GetByTokenAsync(string token, CancellationToken cancellationToken = default);
+        Task<RefreshTokenEntity> FindByTokenAsync(string token, CancellationToken cancellationToken = default);
     }
 }

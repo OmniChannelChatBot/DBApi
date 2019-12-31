@@ -32,7 +32,7 @@ namespace DB.Api
         {
             app.UseMiddleware<ApiExceptionMiddleware>();
             app.UseRouting();
-            app.UseCustomHealthChecks();
+            app.UseHealthChecks();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
             app.UseCorrelate();
             app.UseCustomSwagger();

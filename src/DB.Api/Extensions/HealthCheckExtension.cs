@@ -12,7 +12,7 @@ namespace DB.Api.Extensions
 {
     public static class HealthCheckExtension
     {
-        public static IHealthChecksBuilder AddCustomHealthChecks(this IServiceCollection services)
+        public static IHealthChecksBuilder AddHealthCheckServices(this IServiceCollection services)
         {
             return services
                 .AddHealthChecks()
@@ -22,7 +22,7 @@ namespace DB.Api.Extensions
                     new[] { "memory" });
         }
 
-        public static IApplicationBuilder UseCustomHealthChecks(this IApplicationBuilder app)
+        public static IApplicationBuilder UseHealthChecks(this IApplicationBuilder app)
         {
             app
                 .UseHealthChecks("/health")

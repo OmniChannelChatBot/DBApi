@@ -1,4 +1,7 @@
-﻿using DB.Core.Interfaces;
+﻿using DB.Api.Application.BehaviorHandlers;
+using DB.Api.Application.CommandHandlers;
+using DB.Api.Application.QueryHandlers;
+using DB.Core.Interfaces;
 using DB.Infrastructure.Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -40,48 +43,35 @@ namespace DB.Api.Extensions
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
-        public static IServiceCollection AddHealthCheckServices(this IServiceCollection services)
-        {
-            services.AddHealthChecks();
-            services.AddCustomHealthChecks();
-            return services;
-        }
-
         private static IServiceCollection AddFluentValidators(this IServiceCollection services) => services
-            .Scan(scan =>
-            {
-                scan
-                    .FromAssemblies(typeof(Startup).Assembly)
-                    .AddClasses(classes => classes
-                        .InNamespaces(_namespaceApplication)
-                        .AssignableTo(typeof(IValidator<>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime();
-            });
+            .Scan(scan => scan
+                .FromAssemblies(typeof(Startup).Assembly)
+                .AddClasses(classes => classes
+                    .InNamespaces(_namespaceApplication)
+                    .AssignableTo(typeof(IValidator<>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
 
         private static IServiceCollection AddMediatR(this IServiceCollection services) => services
             .AddScoped<ServiceFactory>(p => t => p.GetService(t))
             .AddScoped<IMediator, Mediator>();
 
         private static IServiceCollection AddMediatRHandlers(this IServiceCollection services) => services
-            .Scan(scan =>
-            {
-                scan
-                    .FromAssemblies(typeof(Startup).Assembly)
-                    .AddClasses(classes => classes
-                        .InNamespaces(_namespaceApplication)
-                        .AssignableTo(typeof(IRequestHandler<>)))
-                    .AsImplementedInterfaces()
-                    .AddClasses(classes => classes
-                        .InNamespaces(_namespaceApplication)
-                        .AssignableTo(typeof(IRequestHandler<,>)))
-                    .AsImplementedInterfaces()
-                    .AddClasses(classes => classes
-                        .InNamespaces(_namespaceApplication)
-                        .AssignableTo(typeof(IPipelineBehavior<,>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime();
-            });
+            .Scan(scan => scan
+                .FromAssemblies(typeof(Startup).Assembly)
+                .AddClasses(classes => classes
+                    .InNamespaces(_namespaceApplication)
+                    .AssignableTo(typeof(IRequestHandler<>)))
+                .AsImplementedInterfaces()
+                .AddClasses(classes => classes
+                    .InNamespaces(_namespaceApplication)
+                    .AssignableTo(typeof(IRequestHandler<,>)))
+                .AsImplementedInterfaces()
+                .AddClasses(classes => classes
+                    .InNamespaces(_namespaceApplication)
+                    .AssignableTo(typeof(IPipelineBehavior<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
 
         private static IServiceCollection AddMvcActionFilters(this IServiceCollection services) => services
             .AddScoped<ApiActionFilter>()

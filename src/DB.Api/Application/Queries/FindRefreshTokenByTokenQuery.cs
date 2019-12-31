@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Queries
 {
-    public class GetRefreshTokenByTokenQuery : IRequest<GetRefreshTokenByTokenQueryResponse>
+    public class FindRefreshTokenByTokenQuery : IRequest<FindRefreshTokenByTokenQueryResponse>
     {
         [Required]
         public string Token { get; set; }

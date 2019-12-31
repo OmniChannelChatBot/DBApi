@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DB.Api.Application.Models
 {
-    public class GetRefreshTokenByTokenQueryResponse
+    public class FindRefreshTokenByTokenQueryResponse
     {
         [Required]
         public int Id { get; set; }

@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DB.Api.Application.Validators.Queries
 {
-    public class GetRefreshTokenByTokenQueryValidator : AbstractValidator<GetRefreshTokenByTokenQuery>
+    public class FindRefreshTokenByTokenQueryValidator : AbstractValidator<FindRefreshTokenByTokenQuery>
     {
-        public GetRefreshTokenByTokenQueryValidator()
+        public FindRefreshTokenByTokenQueryValidator()
         {
             RuleFor(query => query.Token)
                 .NotNull()

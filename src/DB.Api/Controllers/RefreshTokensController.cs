@@ -27,19 +27,21 @@ namespace DB.Api.Controllers
             return Ok(refreshTokenId);
         }
 
+        [HttpDelete]
+        [SwaggerOperation(OperationId = nameof(DeleteRefreshTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Deleted")]
+        public async Task<IActionResult> DeleteRefreshTokenAsync([FromBody, BindRequired]DeleteRefreshTokenCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(default);
+        }
+
         [HttpGet("token/{Token}")]
-        [SwaggerOperation(OperationId = nameof(GetRefreshTokenByTokenAsync))]
-        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetRefreshTokenByTokenQueryResponse))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Received", typeof(ApiProblemDetails))]
-        public async Task<IActionResult> GetRefreshTokenByTokenAsync([FromRoute]GetRefreshTokenByTokenQuery query)
+        [SwaggerOperation(OperationId = nameof(FindRefreshTokenByTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(FindRefreshTokenByTokenQueryResponse))]
+        public async Task<IActionResult> FindRefreshTokenByTokenAsync([FromRoute]FindRefreshTokenByTokenQuery query)
         {
             var refreshToken = await _mediator.Send(query);
-
-            if(refreshToken == default)
-            {
-                return NotFound();
-            }
-
             return Ok(refreshToken);
         }
     }

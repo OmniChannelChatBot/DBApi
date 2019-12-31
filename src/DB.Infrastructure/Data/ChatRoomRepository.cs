@@ -33,7 +33,7 @@ namespace DB.Infrastructure.Data
         public Task UpdateAsync(ChatRoomEntity entity, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
-        public Task DeleteAsync(int id, CancellationToken cancellationToken = default) =>
+        public Task DeleteAsync(ChatRoomEntity entity, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
     }
 }
