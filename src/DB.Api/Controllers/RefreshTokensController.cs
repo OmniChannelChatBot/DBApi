@@ -49,6 +49,7 @@ namespace DB.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(FindRefreshTokenByTokenQueryResponse))]
         public async Task<IActionResult> FindRefreshTokenByTokenAsync([FromRoute]FindRefreshTokenByTokenQuery query)
         {
+            // TODO: Token приходит c экранированными символами, если они есть
             var refreshToken = await _mediator.Send(query);
             return Ok(refreshToken);
         }
