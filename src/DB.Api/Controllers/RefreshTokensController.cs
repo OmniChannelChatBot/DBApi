@@ -44,7 +44,7 @@ namespace DB.Api.Controllers
             return Ok(default);
         }
 
-        [HttpGet("token")]
+        [HttpGet]
         [SwaggerOperation(OperationId = nameof(FindRefreshTokenByTokenAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(FindRefreshTokenByTokenQueryResponse))]
         public async Task<IActionResult> FindRefreshTokenByTokenAsync([FromQuery]FindRefreshTokenByTokenQuery query)
