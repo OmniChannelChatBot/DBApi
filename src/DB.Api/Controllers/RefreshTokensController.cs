@@ -44,12 +44,11 @@ namespace DB.Api.Controllers
             return Ok(default);
         }
 
-        [HttpGet("token/{Token}")]
+        [HttpGet("token")]
         [SwaggerOperation(OperationId = nameof(FindRefreshTokenByTokenAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(FindRefreshTokenByTokenQueryResponse))]
-        public async Task<IActionResult> FindRefreshTokenByTokenAsync([FromRoute]FindRefreshTokenByTokenQuery query)
+        public async Task<IActionResult> FindRefreshTokenByTokenAsync([FromQuery]FindRefreshTokenByTokenQuery query)
         {
-            // TODO: Token приходит c экранированными символами, если они есть
             var refreshToken = await _mediator.Send(query);
             return Ok(refreshToken);
         }
