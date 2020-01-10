@@ -35,7 +35,7 @@ namespace DB.Infrastructure.Data
         public Task UpdateAsync(ChatMessageEntity entity, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
-        public Task DeleteAsync(int id, CancellationToken cancellationToken = default) =>
+        public Task DeleteAsync(ChatMessageEntity entity, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
     }
 }

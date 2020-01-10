@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using OCCBPackage;
+using OCCBPackage.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
@@ -27,19 +27,30 @@ namespace DB.Api.Controllers
             return Ok(refreshTokenId);
         }
 
-        [HttpGet("token/{Token}")]
-        [SwaggerOperation(OperationId = nameof(GetRefreshTokenByTokenAsync))]
-        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetRefreshTokenByTokenQueryResponse))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, "Received", typeof(ApiProblemDetails))]
-        public async Task<IActionResult> GetRefreshTokenByTokenAsync([FromRoute]GetRefreshTokenByTokenQuery query)
+        [HttpDelete]
+        [SwaggerOperation(OperationId = nameof(DeleteRefreshTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Deleted")]
+        public async Task<IActionResult> DeleteRefreshTokenAsync([FromBody, BindRequired]DeleteRefreshTokenCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(default);
+        }
+
+        [HttpPatch]
+        [SwaggerOperation(OperationId = nameof(UpdateRefreshTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Updated")]
+        public async Task<IActionResult> UpdateRefreshTokenAsync([FromBody, BindRequired]UpdateRefreshTokenCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(default);
+        }
+
+        [HttpGet]
+        [SwaggerOperation(OperationId = nameof(FindRefreshTokenByTokenAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(FindRefreshTokenByTokenQueryResponse))]
+        public async Task<IActionResult> FindRefreshTokenByTokenAsync([FromQuery]FindRefreshTokenByTokenQuery query)
         {
             var refreshToken = await _mediator.Send(query);
-
-            if(refreshToken == default)
-            {
-                return NotFound();
-            }
-
             return Ok(refreshToken);
         }
     }

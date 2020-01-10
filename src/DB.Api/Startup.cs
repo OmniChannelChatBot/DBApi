@@ -7,6 +7,8 @@ using DB.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OCCBPackage.Extensions;
+using OCCBPackage.Swagger.OperationFilters;
 
 namespace DB.Api
 {
@@ -19,13 +21,18 @@ namespace DB.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHealthCheckServices();
+            services.AddMediatR();
+            services.AddCustomHealthChecks();
             services.AddCorrelate(options => options.RequestHeaders = new[] { "X-Correlation-ID" });
             services.AddDatabaseServices(Configuration.GetConnectionString("DefaultConnection"));
             services.AddAutoMapper(typeof(Startup));
             services.AddApplicationServices();
             services.AddApiServices();
-            services.AddCustomSwagger();
+            services.AddCustomSwagger(o =>
+            {
+                o.OperationFilter<OperationApiProblemDetailsFilter>(
+                    new int[] { 504, 503, 502, 501, 500, 415, 413, 412, 405, 400 });
+            });
         }
 
         public void Configure(IApplicationBuilder app)

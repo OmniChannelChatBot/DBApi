@@ -31,22 +31,17 @@ namespace DB.Infrastructure.Data
         public Task UpdateAsync(UserEntity entity, CancellationToken cancellationToken = default)
         {
             _context.Users.Update(entity);
-
             return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+        public Task DeleteAsync(UserEntity entity, CancellationToken cancellationToken = default)
         {
-            var user = await _context.Users.FindAsync(id, cancellationToken);
-            if (user != default)
-            {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync(cancellationToken);
-            };
+            _context.Users.Remove(entity);
+            return _context.SaveChangesAsync(cancellationToken);
         }
 
         public Task<bool> AvailabilityUsernameAsync(string username, CancellationToken cancellationToken = default) =>
-            _context.Users.AnyAsync(u => u.Username == username, cancellationToken);
+            _context.Users.AsNoTracking().AnyAsync(u => u.Username == username, cancellationToken);
 
         public async Task AddUserToRoomAsync(Guid roomGuid, int id, CancellationToken cancellationToken = default)
         {
@@ -74,6 +69,6 @@ namespace DB.Infrastructure.Data
             await _context.Users.FindAsync(id, cancellationToken);
 
         public Task<UserEntity> GetByUsernameAsync(string userName, CancellationToken cancellationToken = default) =>
-            _context.Users.FirstOrDefaultAsync(u => u.Username == userName, cancellationToken);
+            _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName, cancellationToken);
     }
 }
