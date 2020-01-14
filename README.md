@@ -6,7 +6,7 @@
 |  dev |   |
 
 # TODO:
-## -add sentry.io
+## -add sentry.io https://sentry.io/organizations/omnichannelchatbot/issues/?project=1881531
 ## -add docker
 ## -add opentracing, jaeger
 ## -add polly
