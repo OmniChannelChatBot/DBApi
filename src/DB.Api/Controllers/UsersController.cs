@@ -39,6 +39,7 @@ namespace DB.Api.Controllers
         [HttpGet("{Id:int}")]
         [SwaggerOperation(OperationId = nameof(GetUserByIdAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetUserByIdQueryResponse))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, "Not found", typeof(ApiProblemDetails))]
         public async Task<IActionResult> GetUserByIdAsync([FromRoute]GetUserByIdQuery query)
         {
             var user = await _mediator.Send(query);

@@ -66,7 +66,7 @@ namespace DB.Infrastructure.Data
         }
 
         public async Task<UserEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
-            await _context.Users.FindAsync(id, cancellationToken);
+            await _context.Users.FindAsync(new object[] { id }, cancellationToken: cancellationToken);
 
         public Task<UserEntity> GetByUsernameAsync(string userName, CancellationToken cancellationToken = default) =>
             _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName, cancellationToken);
