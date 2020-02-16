@@ -28,7 +28,7 @@ namespace DB.Api.Controllers
             return Ok(chatMessages);
         }
 
-        [HttpGet("/chat-room/{Guid}")]
+        [HttpGet("chat-room/{Guid}")]
         [SwaggerOperation(OperationId = nameof(GetChatMessageListByChatRoomGuidAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(IEnumerable<GetChatMessageListByChatRoomGuidQueryResponse>))]
         public async Task<IActionResult> GetChatMessageListByChatRoomGuidAsync([FromRoute]GetChatMessageListByChatRoomGuidQuery query)
