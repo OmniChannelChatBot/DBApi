@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OCCBPackage.Extensions;
 using OCCBPackage.Swagger.OperationFilters;
+using Sentry.Extensibility;
 
 namespace DB.Api
 {
@@ -21,6 +22,15 @@ namespace DB.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register as many ISentryEventExceptionProcessor as you need. They ALL get called.
+            services.AddSingleton<ISentryEventExceptionProcessor, ApiExceptionProcessor>();
+
+            // You can also register as many ISentryEventProcessor as you need.
+            services.AddTransient<ISentryEventProcessor, SentryEventProcessor>();
+
+            // To demonstrate taking a request-aware service into the event processor above
+            services.AddHttpContextAccessor();
+
             services.AddMediatR();
             services.AddCustomHealthChecks();
             services.AddCorrelate(options => options.RequestHeaders = new[] { "X-Correlation-ID" });
