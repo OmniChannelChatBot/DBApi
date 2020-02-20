@@ -15,13 +15,16 @@ namespace DB.Core.Entities.Messangers
         [MaxLength(250)]
         public string GroupId { get; set; }
 
+        [Required]
+        public short Type { get; set; }
+
         /// <summary>
-        /// Should by CompanyId or UserId not null
+        /// CompanyId or UserId should by  not null
         /// </summary>
         public int? CompanyId { get; set; }
 
         /// <summary>
-        /// Should by CompanyId or UserId not null
+        /// CompanyId or UserId should by  not null
         /// </summary>
         public int? UserId { get; set; }
 

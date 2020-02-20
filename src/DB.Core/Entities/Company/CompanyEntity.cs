@@ -8,7 +8,7 @@ namespace DB.Core.Entities.Company
     {
         [Required]
         [MaxLength(250)]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         public List<UserEntity> CompanyUsers { get; set; }
     }
