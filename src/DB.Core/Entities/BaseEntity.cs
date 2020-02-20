@@ -7,14 +7,14 @@ namespace DB.Core.Entities
     public class BaseEntity
     {
         /// <summary>
-        /// For known users stored in database
+        /// For known entities stored in database
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 
         /// <summary>
-        /// For channel users
+        /// For client id generation
         /// </summary>
         [Required]
         public Guid Guid { get; set; }
