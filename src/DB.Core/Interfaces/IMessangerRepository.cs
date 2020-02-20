@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DB.Core.Interfaces
 {
-    public interface IMessangerCredentialsRepository : IRepository<MessangerCredentialsEntity>
+    public interface IMessangerRepository : IRepository<MessangerEntity>
     {
     }
 }

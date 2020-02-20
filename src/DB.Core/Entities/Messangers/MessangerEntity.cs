@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DB.Core.Entities.Messangers
 {
-    public class MessangerCredentialsEntity : BaseEntity
+    public class MessangerEntity : BaseEntity
     {
         [Required]
         [MaxLength(250)]
