@@ -28,6 +28,9 @@ namespace DB.Api
             // You can also register as many ISentryEventProcessor as you need.
             services.AddTransient<ISentryEventProcessor, SentryEventProcessor>();
 
+            // To demonstrate taking a request-aware service into the event processor above
+            services.AddHttpContextAccessor();
+
             services.AddMediatR();
             services.AddCustomHealthChecks();
             services.AddCorrelate(options => options.RequestHeaders = new[] { "X-Correlation-ID" });
