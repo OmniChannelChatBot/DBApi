@@ -26,7 +26,8 @@ namespace DB.Infrastructure.Data
 
         public Task DeleteAsync(MessangerEntity entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            _context.Messangers.Remove(entity);
+            return _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IReadOnlyList<MessangerEntity>> GetByCompanyIdAsync(int companyId, CancellationToken cancellationToken = default)
