@@ -1,5 +1,11 @@
-﻿using MediatR;
+﻿using DB.Api.Application.Commands;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OCCBPackage.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace DB.Api.Controllers
 {
@@ -9,5 +15,14 @@ namespace DB.Api.Controllers
 
         public MessangerController(IMediator mediator) =>
             _mediator = mediator;
+
+        [HttpPost]
+        [SwaggerOperation(OperationId = nameof(CreateMessangerAsync))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Created", typeof(int))]
+        public async Task<IActionResult> CreateMessangerAsync([FromBody, BindRequired] AddMessangerCommand command)
+        {
+            var messangerId = await _mediator.Send(command);
+            return Ok(messangerId);
+        }
     }
 }
