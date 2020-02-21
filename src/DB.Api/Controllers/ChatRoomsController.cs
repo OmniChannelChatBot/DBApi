@@ -28,7 +28,7 @@ namespace DB.Api.Controllers
             return Ok(chatRooms);
         }
 
-        [HttpGet("/user/{Id:int}")]
+        [HttpGet("user/{Id:int}")]
         [SwaggerOperation(OperationId = nameof(GetChatRoomByUserIdAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Received", typeof(GetChatRoomByUserIdQueryResponse))]
         public async Task<IActionResult> GetChatRoomByUserIdAsync([FromRoute]GetChatRoomByUserIdQuery query)
