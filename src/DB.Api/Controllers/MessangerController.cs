@@ -17,9 +17,9 @@ namespace DB.Api.Controllers
             _mediator = mediator;
 
         [HttpPost]
-        [SwaggerOperation(OperationId = nameof(CreateMessangerAsync))]
+        [SwaggerOperation(OperationId = nameof(AddMessangerAsync))]
         [SwaggerResponse(StatusCodes.Status200OK, "Created", typeof(int))]
-        public async Task<IActionResult> CreateMessangerAsync([FromBody, BindRequired] AddMessangerCommand command)
+        public async Task<IActionResult> AddMessangerAsync([FromBody, BindRequired] AddMessangerCommand command)
         {
             var messangerId = await _mediator.Send(command);
             return Ok(messangerId);

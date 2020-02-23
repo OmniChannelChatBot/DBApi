@@ -24,8 +24,8 @@ namespace DB.Api.Application.CommandHandlers
 
         public Task<int> Handle(AddMessangerCommand command, CancellationToken cancellationToken)
         {
-            var refreshTokenEntity = _mapper.Map<MessangerEntity>(command);
-            return _messangerRepository.AddAsync(refreshTokenEntity, cancellationToken);
+            var messangerEntity = _mapper.Map<MessangerEntity>(command);
+            return _messangerRepository.AddAsync(messangerEntity, cancellationToken);
         }
     }
 }

@@ -30,10 +30,8 @@ namespace DB.Infrastructure.Data
             return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyList<MessangerEntity>> GetByCompanyIdAsync(int companyId, CancellationToken cancellationToken = default)
-        {
-            return await _context.Messangers.Where(u => u.CompanyId == companyId).ToArrayAsync();
-        }
+        public async Task<IReadOnlyList<MessangerEntity>> GetByCompanyIdAsync(int companyId, CancellationToken cancellationToken = default) => 
+            await _context.Messangers.Where(u => u.CompanyId == companyId).ToArrayAsync(cancellationToken);
 
         public Task<MessangerEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
