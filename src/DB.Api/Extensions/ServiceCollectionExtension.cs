@@ -21,7 +21,8 @@ namespace DB.Api.Extensions
             .AddScoped<IChatMessageRepository, ChatMessageRepository>()
             .AddScoped<IChatRoomRepository, ChatRoomRepository>()
             .AddScoped<IUserRepository, UserRepository>()
-            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+            .AddScoped<IMessangerRepository, MessangerRepository>();
 
         private static IServiceCollection AddFluentValidators(this IServiceCollection services) => services
             .Scan(scan => scan
