@@ -24,5 +24,14 @@ namespace DB.Api.Controllers
             var messangerId = await _mediator.Send(command);
             return Ok(messangerId);
         }
+
+        [HttpDelete]
+        [SwaggerOperation(OperationId = nameof(DeleteMessangerAsync))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Deleted")]
+        public async Task<IActionResult> DeleteMessangerAsync([FromBody, BindRequired]DeleteRefreshTokenCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(default);
+        }
     }
 }
