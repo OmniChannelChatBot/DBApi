@@ -30,7 +30,7 @@ namespace DB.Core.Entities.Identity
         [Required]
         public short Type { get; set; }
 
-        public List<ChatChannelEntity> ChatChannel { get; set; }
+        public List<ChatChannelEntity> ChatChannels { get; set; }
 
         public List<RefreshTokenEntity> RefreshTokens { get; set; }
     }

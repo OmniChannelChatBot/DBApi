@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OCCBPackage.Extensions;
+using OCCBPackage.Sentry;
 using OCCBPackage.Swagger.OperationFilters;
 using Sentry.Extensibility;
 
