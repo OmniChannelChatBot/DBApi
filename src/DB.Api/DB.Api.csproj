@@ -10,7 +10,7 @@
     <PackageReference Include="Correlate.AspNetCore" Version="3.2.0" />
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="Scrutor" Version="3.2.0" />
-    <PackageReference Include="Sentry.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="3.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
